@@ -1,0 +1,97 @@
+https://biblionet.gr/wp-json/biblionetwebservice/get_person
+Παράμετροι (ΚΕΥ/VALUE):
+username : το όνομα χρήστη του συνδρομητή στην ιστοσελίδα της βιβλιονετ (string)
+password : ο κωδικός του χρήστη στην ιστοσελίδα της βιβλιονετ (string)
+person : To id του ζητούμενου προσώπου (ακέραιος) 
+
+Array
+(
+    [0] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [PersonsID] => 139443
+                    [Photo] => /wp-content/uploadsPersonImages/14/139443.jpg
+                    [Name] => Anna
+                    [MiddleName] => 
+                    [Surname] => Roy
+                    [BornYear] => 
+                    [DeathYear] => 
+                    [Biography] => Η Άννα Ρουά είναι μαία και συντάκτρια στην εκπομπή μητρότητας και γονεϊκότητας «La Maison des Maternelles» (France 2) και δημιουργός της διαδικτυακής εκπομπής, με αντίστοιχο θέμα, «Sage-meuf» (Europe 1). Η περίοδος είναι ένα από τα βασικά αντικείμενα που την απασχολούν στην επαγγελματική της καθημερινότητα και στο βιβλίο αυτό έχει συγκεντρώσει όλες τις σχετικές ερωτήσεις των ασθενών της.
+
+(Πηγή: "Εκδόσεις Πατάκη", 2023)
+                    [LastUpdate] => 2023-09-05
+                )
+
+        )
+
+)
+
+https://biblionet.gr/wp-json/biblionetwebservice/get_month_titles
+Παράμετροι (ΚΕΥ/VALUE):
+username : το όνομα χρήστη του συνδρομητή στην ιστοσελίδα της βιβλιονετ (string)
+password : ο κωδικός του χρήστη στην ιστοσελίδα της βιβλιονετ (string)
+year : το έτος που αφορά η αναζήτηση (ακέραιος)
+month : ο μήνας που αφορά η αναζήτηση (ακέραιος από 1 έως 12)
+titles_per_page : ο αριθμός των τίτλων που θα εμφανίζονται σε κάθε αναζήτηση, δηλαδή κάθε «σελίδα» αποτελεσμάτων (ακέραιος από 1 έως 50 )
+page : η επιθυμητή σελίδα αποτελεσμάτων (ακέραιος) 
+
+[0] => stdClass Object
+                (
+                    [TitlesID] => 280964
+                    [CoverImage] => /wp-content/uploadsTitleImages/29/b280964.jpg
+                    [Title] => Όλα για την περίοδο!
+                    [Subtitle] => 
+                    [ParallelTitle] => 
+                    [AlternativeTitle] => 
+                    [OriginalTitle] => Tout sur les règles!
+                    [ISBN] => 978-618-07-0065-7
+                    [ISBN_2] => 
+                    [ISBN_3] => 
+                    [ISMN] => 
+                    [PublisherID] => 20
+                    [Publisher] => Εκδόσεις Πατάκη
+                    [WriterID] => 139443
+                    [Writer] => Roy, Anna
+                    [WriterName] => Άννα Ρουά
+                    [FirstPublishDate] => 2023-08-30
+                    [CurrentPublishDate] => 2023-08-30
+                    [FuturePublishDate] => 0000-00-00
+                    [PlaceID] => 1
+                    [Place] => Αθήνα
+                    [TitleType] => Βιβλίο
+                    [EditionNo] => 
+                    [Cover] => Μαλακό εξώφυλλο
+                    [Dimensions] => 22x16
+                    [PageNo] => 96
+                    [Availability] => Κυκλοφορεί
+                    [Price] => 8.5000
+                    [VAT] => 6
+                    [Weight] => 240
+                    [AgeFrom] => 10
+                    [AgeTo] => 
+                    [Summary] => Καλώς ήρθατε στον εκπληκτικό κόσμο της περιόδου!
+Αυτό το βιβλίο δημιουργήθηκε για να απαντήσει σε όλες τις απορίες που μπορεί να έχουν τα νέα κορίτσια, οι γυναίκες, αλλά και τα αγόρια και οι άντρες, γιατί η περίοδος είναι ζήτημα κοινωνικό! Δεν είναι ταμπού! Θα πρέπει να μπορούμε να μιλάμε γι’ αυτό άνετα, στην παρέα, την οικογένεια ή το σχολείο, χωρίς να ντρεπόμαστε. Μην πανικοβάλλεστε, μπορεί στην αρχή να ξαφνιαστείτε, αλλά θα σας τα εξηγήσουμε όλα!
+Η Άννα Ρουά και η Μαντμουαζέλ Καρολίν συνέλαβαν από κοινού την ιδέα αυτού του βιβλίου ως ενός πρακτικού, προσβάσιμου και ζωντανού «χάρτη» για μια ψύχραιμη αντιμετώπιση αυτού του σημαντικού βήματος της εφηβείας.
+                    [LanguageID] => 37
+                    [Language] => ελληνικά
+                    [LanguageOriginalID] => 4
+                    [LanguageOriginal] => γαλλικά
+                    [LanguageTranslatedFromID] => 4
+                    [LanguageTranslatedFrom] => γαλλικά
+                    [Contains] => 
+                    [Series] => 
+                    [SeriesNo] => 
+                    [SubSeries] => 
+                    [SubSeriesNo] => 
+                    [MultiVolumeTitle] => 
+                    [SetISBN] => 
+                    [VolumeNo] => 
+                    [VolumeCount] => 
+                    [Specifications] => 
+                    [WebAddress] => 
+                    [Comments] => 
+                    [CategoryID] => 2
+                    [Category] => Εγκυκλοπαίδειες & λεξικά
+                    [LastUpdate] => 2023-09-05
+                )
