@@ -4,18 +4,11 @@
     define("DEBUG", true);
     define('biblionetUsername', 'nickpsal@gmail.com');
     define('biblionetPassword', ')5Ac4m%AEtbrd1%z$GJKCjRN');
-    if ($_SERVER['SERVER_NAME'] == '127.0.0.1' or  $_SERVER['SERVER_NAME'] == 'localhost') {
-        define('ROOT', 'http://127.0.0.1/biblionet_script/public');
-        define('URL', 'http://127.0.0.1/biblionet_script');
-        define('DB_HOST', 'localhost');
-        define('DB_USER', 'root');
-        define('DB_PASS', 'toor');
-        define('DB_NAME', 'mvc_db');
-    }else {
-        define('ROOT', 'https://' . $_SERVER['HTTP_HOST'] . '/biblionet_script/public/');
-        define('URL', 'https://' . $_SERVER['HTTP_HOST'] . '/biblionet_script/');
-        define('DB_HOST', 'localhost');
-        define('DB_USER', 'koyinta588443_projects');
-        define('DB_PASS', 'gbrCBRM2908');
-        define('DB_NAME', 'koyinta588443_projects');
-    }
+    define('CoverImagesPath', '/var/www/vhosts/koyinta.gr/biblionet.juliet.gr/images/biblionet/');
+    define('AuthorsImagePath', '/var/www/vhosts/koyinta.gr/biblionet.juliet.gr/images/biblionet/Authors/');
+    define('ROOT', 'https://' . $_SERVER['HTTP_HOST'] . '/public/');
+    define('URL', 'https://' . $_SERVER['HTTP_HOST'] . '/');
+    define('DB_HOST', 'localhost');
+    define('DB_USER', 'koyinta588443_juliet.gr');
+    define('DB_PASS', 'hT!7Uq@&iX%0F$ak');
+    define('DB_NAME', 'koyinta588443_juliet.gr');

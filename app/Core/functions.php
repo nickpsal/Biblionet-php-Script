@@ -420,8 +420,7 @@ function ismethodPost()
 
 function download_Cover_Image($coverImageURL, $filename)  {
     //
-    $localPath = "/var/www/vhosts/koyinta.gr/projects.datatex.gr/biblionet_testing/images/biblionet/" . $filename; 
-    //$localPath = "/var/www/vhosts/koyinta.gr/juliet.gr/images/biblionet/" . $filename;
+    $localPath = CoverImagesPath . $filename; 
     // Download the image and save it locally
     $content = @file_get_contents($coverImageURL);
     if ($content !== false) {
@@ -430,8 +429,7 @@ function download_Cover_Image($coverImageURL, $filename)  {
 }
 
 function downlaod_Author_image($AuthorImageURL, $filename) {
-    $localPath = "/var/www/vhosts/koyinta.gr/projects.datatex.gr/biblionet_testing/images/biblionet/Authors/" . $filename; 
-    //$localPath = "/var/www/vhosts/koyinta.gr/juliet.gr/images/biblionet/Authors/" . $filename;
+    $localPath = AuthorsImagePath . $filename; 
     // Download the image and save it locally
     $content = @file_get_contents($AuthorImageURL);
     if ($content  !== false) {
