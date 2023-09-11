@@ -11,6 +11,16 @@
         <div class="custom-text">Χρησιμοποιει το λινκ απο την Biblionet με το username και το password γιά να πάρει</div>
         <div class="custom-text">τις κυκλοφορίες του τελευταίου Μήυα απευθειας στην Βάση Δεδομένων για το Joomla και την Alexandria Book Library</div>
         <div class="custom-text">Σημερινή Ημερομηνία <?= getCurrentDate(); ?></div>
+        <div class="custom-text">
+            <?php
+                if (getLastgrabDate() != null) {
+                    $date = getLastgrabDate();
+                    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date);
+                    $formattedDate = $dateTime->format('d-m-Y H:i:s');
+                    echo "Τελευταία Ημερομηνία που έτρεξες την Εφαρμογή : " . $formattedDate;
+                }
+            ?>
+        </div>
     </div>
 </div>
 <div class="container">

@@ -17,6 +17,12 @@ function getCurrentDate2()
     return $date->format('Y-m-d H:i');
 }
 
+function  getLastgrabDate() {
+    $lastDate = new biblionetScript();
+    $res = $lastDate->find_all();
+    return $res[0]->lastDate;
+}
+
 function showData($stuff)
 {
     echo "<pre>";
@@ -26,6 +32,7 @@ function showData($stuff)
 
 function BookData($monthNumber, $YearNumber, $PageNumber)
 {
+    $lastDate = new biblionetScript();
     $date = getCurrentDate();
     $date2 = getCurrentDate2();
     $authors_counter = 0;
@@ -304,6 +311,8 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
     $returned_data['category_counter'] = $categorys_counter;
     $returned_data['publisher_counter'] = $publishers_counter;
     $returned_data['books_counter'] = $books_counter;
+    $data6['lastDate'] = $date2;
+    $res8 = $lastDate->update(1, $data6);
     return $returned_data;
 }
 
