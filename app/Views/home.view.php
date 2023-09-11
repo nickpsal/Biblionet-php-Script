@@ -13,8 +13,8 @@
         <div class="custom-text">Σημερινή Ημερομηνία <?= getCurrentDate(); ?></div>
         <div class="custom-text">
             <?php
-                if (getLastgrabDate() != null) {
-                    $date = getLastgrabDate();
+                $datetime = getLastgrabDate();
+                if (isset($dateTime)) {
                     $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date);
                     $formattedDate = $dateTime->format('d-m-Y H:i:s');
                     echo "Τελευταία Ημερομηνία που έτρεξες την Εφαρμογή : " . $formattedDate;

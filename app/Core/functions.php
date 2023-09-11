@@ -20,7 +20,9 @@ function getCurrentDate2()
 function  getLastgrabDate() {
     $lastDate = new biblionetScript();
     $res = $lastDate->find_all();
-    return $res[0]->lastDate;
+    if ($res != false) {
+        return $res[0]->lastDate;
+    }
 }
 
 function showData($stuff)
