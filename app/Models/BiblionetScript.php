@@ -8,6 +8,9 @@
         protected $offset = 0;
         protected $update_id = 'id';
         protected $allowedColumns = [
-            'lastDate'
+            'lastDate',
+            'month',
+            'year',
+            'page'            
         ];        
     }
