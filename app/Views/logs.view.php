@@ -16,21 +16,31 @@
                     <th scope="col">InsertedMonth</th>
                     <th scope="col">InsertedYear</th>
                     <th scope="col">InsertedPage</th>
+                    <th scope="col">InsertedAuthors</th>
+                    <th scope="col">InsertedCategories</th>
+                    <th scope="col">InsertedPublishers</th>
+                    <th scope="col">InsertedBooks</th>
                 </tr>
             </thead>
             <?php
             if (isset($data['logs'])) {
-                for ($i = 0; $i < sizeof($data['logs']); $i++) {
-                    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $data['logs'][$i]->lastDate);
-                    $formattedDate = $dateTime->format('d-m-Y H:i:s'); ?>
-                        <tbody>
-                            <th scope="col"><?= $data['logs'][$i]->id?></th>
-                            <td><?=$formattedDate?></td>
-                            <td><?=$data['logs'][$i]->InsertedMonth?></td>
-                            <td><?=$data['logs'][$i]->InsertedYear?></td>
-                            <td><?=$data['logs'][$i]->InsertedPage?></td>
-                        </tbody>
-                <?php }
+                if ($data['logs'] != false) {
+                    for ($i = 0; $i < sizeof($data['logs']); $i++) {
+                        $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $data['logs'][$i]->lastDate);
+                        $formattedDate = $dateTime->format('d-m-Y H:i:s'); ?>
+                            <tbody>
+                                <th scope="col"><?= $data['logs'][$i]->id?></th>
+                                <td><?=$formattedDate?></td>
+                                <td><?=$data['logs'][$i]->InsertedMonth?></td>
+                                <td><?=$data['logs'][$i]->InsertedYear?></td>
+                                <td><?=$data['logs'][$i]->InsertedPage?></td>
+                                <td><?=$data['logs'][$i]->InsertedAuthors?></td>
+                                <td><?=$data['logs'][$i]->InsertedCategories?></td>
+                                <td><?=$data['logs'][$i]->InsertedPublishers?></td>
+                                <td><?=$data['logs'][$i]->InsertedBooks?></td>
+                            </tbody>
+                    <?php }
+                }
             }
             ?>
         </table>

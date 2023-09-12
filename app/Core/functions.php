@@ -318,6 +318,10 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
     $data6['InsertedMonth'] = $monthNumber;
     $data6['InsertedYear'] = $YearNumber;
     $data6['InsertedPage'] = $PageNumber;
+    $data6['InsertedAuthors'] = $authors_counter;
+    $data6['InsertedCategories'] = $categorys_counter;
+    $data6['InsertedPublishers'] = $publishers_counter;
+    $data6['InsertedBooks'] = $books_counter;
     $res8 = $lastDate->insert($data6);
     return $returned_data;
 }

@@ -11,6 +11,10 @@
             'lastDate',
             'InsertedMonth',
             'InsertedYear',
-            'InsertedPage'            
+            'InsertedPage',     
+            'InsertedAuthors',
+            'InsertedCategories',
+            'InsertedPublishers',
+            'InsertedBooks'
         ];        
     }
