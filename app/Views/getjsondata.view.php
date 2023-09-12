@@ -9,15 +9,13 @@
     <div>
         <h1 class="header">Σύστημα Διασύνδεσης με την βαση Δεδομενων της Biblionet</h1>
         <div class="custom-text">Δηλώστε τον Μήνα την Χρονολογία και τον Αριθμό της Σελίδας που θελετε να πάρετε τα Δεδομενα</div>
-        <?php
-        if ($data != null) { ?>
-            <div class="custom-text">Αποτελέσματα : Περάστηκαν με Επιτυχία</div>
-            <div class="custom-text">Αριθμός Συγγραφέων : <?= $data['author_counter'] ?></div>
-            <div class="custom-text">Αριθμός Κατηγοριών : <?= $data['category_counter'] ?></div>
-            <div class="custom-text">Αριθμός Εκδοτών : <?= $data['publisher_counter'] ?></div>
-            <div class="custom-text">Αριθμός Βιβλίων : <?= $data['books_counter'] ?></div>
-        <?php }
-        ?>
+        <div class="custom-text">
+		    <?php
+	    	    if (message()) {
+		    	    echo message('', true);
+		        }
+		    ?>
+	    </div>
     </div>
 </div>
 <div class="container">

@@ -22,6 +22,13 @@
                 }
             ?>
         </div>
+        <div class="custom-text">
+		    <?php
+	    	    if (message()) {
+		    	    echo message('', true);
+		        }
+		    ?>
+	    </div>
     </div>
 </div>
 <div class="container">
@@ -29,5 +36,6 @@
         <a href="<?=ROOT?>home/getjsondata" type="submit" class="btn btn-primary mb-3">Περάσμα Δεδομένων απο την Biblionet στην Βάση Δεδομένων</a>
         <a href="<?=ROOT?>home/printjsondata" type="submit" class="btn btn-primary mb-3">Εκτύπωση Δεδομένων απο την Biblionet χωρις να περαστούν στην Βάση</a>
         <a href="<?=ROOT?>home/logs" type="submit" class="btn btn-primary mb-3">Αρχείο Καταγραφής</a>
+        <a href="<?=ROOT?>logout" type="submit" class="btn btn-primary mb-3">Αποσύνδεση</a>
     </div>
 </div>

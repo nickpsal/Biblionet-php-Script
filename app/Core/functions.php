@@ -400,28 +400,24 @@ function get_current_isset_id() {
     }
 }
 
-function redirect()
+function redirect($page)
 {
-    header("Location: " . ROOT .  "index.php");
+    header("Location: " . URL .  $page);
     die();
 }
 
-function ismethodGet()
-{
-    if ($_SERVER['REQUEST_METHOD'] == "GET") {
-        return true;
-    } else {
-        return false;
+//show message only once
+function message($msg = '',$erase = false){
+    if(!empty($msg)){
+        $_SESSION['message'] = $msg;
+    }else if(!empty($_SESSION['message'])){
+        $msg = $_SESSION['message'];
+        if($erase){
+            unset($_SESSION['message']);
+        }
+        return $msg;
     }
-}
-
-function ismethodPost()
-{
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        return true;
-    } else {
-        return false;
-    }
+    return false;
 }
 
 function download_Cover_Image($coverImageURL, $filename)  {
