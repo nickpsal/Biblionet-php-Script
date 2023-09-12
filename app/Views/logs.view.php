@@ -19,13 +19,15 @@
             </thead>
             <?php
             if (isset($data['logs'])) {
-                for ($i = 0; $i < sizeof($data['logs']); $i++) { ?>
+                for ($i = 0; $i < sizeof($data['logs']); $i++) {
+                    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $data['logs'][$i]->lastDate);
+                    $formattedDate = $dateTime->format('d-m-Y H:i:s'); ?>
                         <tbody>
                             <th scope="col"><?= $data['logs'][$i]->id?></th>
-                            <td><?= $data['logs'][$i]->lastDate?></td>
-                            <td><?= $data['logs'][$i]->InsertedMonth?></td>
-                            <td><?= $data['logs'][$i]->InsertedYear?></td>
-                            <td><?= $data['logs'][$i]->InsertedPage?></td>
+                            <td><?=$formattedDate?></td>
+                            <td><?=$data['logs'][$i]->InsertedMonth?></td>
+                            <td><?=$data['logs'][$i]->InsertedYear?></td>
+                            <td><?=$data['logs'][$i]->InsertedPage?></td>
                         </tbody>
                 <?php }
             }
