@@ -1,5 +1,5 @@
 <?php
-    define("APP_NAME", "Biblionet Script");
+    define("APP_NAME", "Biblionet Script Version 1");
     define("APP_DESC", "Biblionet Script Version 1");
     define("DEBUG", true);
     define('biblionetUsername', 'nickpsal@gmail.com');

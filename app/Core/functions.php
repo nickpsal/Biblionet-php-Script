@@ -64,6 +64,7 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                 }
                 if (isset($book[$i]->Price)) {
                     $BookPrice = $book[$i]->Price;
+                    $BookPrice = number_format($BookPrice, 2);
                 }
                 if (isset($book[$i]->PageNo)) {
                     $BookPages = $book[$i]->PageNo;
