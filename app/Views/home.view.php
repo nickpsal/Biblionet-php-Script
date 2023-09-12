@@ -13,9 +13,9 @@
         <div class="custom-text">Σημερινή Ημερομηνία <?= getCurrentDate(); ?></div>
         <div class="custom-text">
             <?php
-                $datetime = getLastgrabDate();
-                if (isset($dateTime)) {
-                    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date);
+                
+                if ($data['datetime'] != false) {
+                    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $data['datetime']);
                     $formattedDate = $dateTime->format('d-m-Y H:i:s');
                     echo "Τελευταία Ημερομηνία που έτρεξες την Εφαρμογή : " . $formattedDate;
                 }
@@ -27,5 +27,6 @@
     <div class="row justify-content-center mt-5 mb-3">
         <a href="<?=ROOT?>home/getjsondata" type="submit" class="btn btn-primary mb-3">Περάσμα Δεδομένων απο την Biblionet στην Βάση Δεδομένων</a>
         <a href="<?=ROOT?>home/printjsondata" type="submit" class="btn btn-primary mb-3">Εκτύπωση Δεδομένων απο την Biblionet χωρις να περαστούν στην Βάση</a>
+        <a href="<?=ROOT?>home/logs" type="submit" class="btn btn-primary mb-3">Αρχείο Καταγραφής</a>
     </div>
 </div>

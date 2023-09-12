@@ -9,8 +9,8 @@
         protected $update_id = 'id';
         protected $allowedColumns = [
             'lastDate',
-            'month',
-            'year',
-            'page'            
+            'InsertedMonth',
+            'InsertedYear',
+            'InsertedPage'            
         ];        
     }

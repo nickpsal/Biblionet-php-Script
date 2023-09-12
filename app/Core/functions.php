@@ -19,7 +19,7 @@ function getCurrentDate2()
 
 function  getLastgrabDate() {
     $lastDate = new biblionetScript();
-    $res = $lastDate->find_all();
+    $res = $lastDate->getLastDate();
     if ($res != false) {
         return $res[0]->lastDate;
     }
@@ -34,7 +34,6 @@ function showData($stuff)
 
 function BookData($monthNumber, $YearNumber, $PageNumber)
 {
-    $lastDate = new biblionetScript();
     $date = getCurrentDate();
     $date2 = getCurrentDate2();
     $authors_counter = 0;
@@ -48,6 +47,7 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
     $Abcategories = new Abcategories();
     $Abeditor = new Abeditor();
     $abbookAuth = new Abbookauth();
+    $lastDate = new biblionetScript();
     $bookData = grabJsonBookData($monthNumber, $YearNumber, $PageNumber);
     if (is_array($bookData)) {
         foreach ($bookData as $book) {
@@ -314,7 +314,10 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
     $returned_data['publisher_counter'] = $publishers_counter;
     $returned_data['books_counter'] = $books_counter;
     $data6['lastDate'] = $date2;
-    $res8 = $lastDate->update(1, $data6);
+    $data6['InsertedMonth'] = $monthNumber;
+    $data6['InsertedYear'] = $YearNumber;
+    $data6['InsertedPage'] = $PageNumber;
+    $res8 = $lastDate->insert($data6);
     return $returned_data;
 }
 

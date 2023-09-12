@@ -8,6 +8,11 @@
             return $this->query($query);
         }
 
+        public function getLastDate() {
+            $query = "SELECT * FROM $this->db_table ORDER BY $this->order_col $this->order_type limit 1";
+            return $this->query($query);
+        }
+
         public function getMax($column_name) {
             $query = "SELECT MAX($column_name) AS max_value FROM $this->db_table;";
             return $this->query($query);

@@ -4,6 +4,7 @@ class Home
     use Controller;
     public function index($data = [])
     {
+        $data['datetime'] = getLastgrabDate();
         $this->view('home', $data);
     }
 
@@ -31,5 +32,11 @@ class Home
             $data['json'] = grabJsonBookData($Month, $Year, $PageNumber);
             $this->view('printjsondata', $data);
         }
+    }
+
+    public function logs($data = []) {
+        $biblionetScript = new biblionetScript();
+        $data['logs'] = $biblionetScript->find_all();
+        $this->view('logs', $data);
     }
 }
