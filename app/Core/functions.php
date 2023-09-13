@@ -26,11 +26,6 @@ function initialiseUserTable() {
 function initialiseBiblionetScriptTable() {
     $biblionetScript = new biblionetScript();
     $res = $biblionetScript->createTable();
-    if ($res) {
-        message("Table User created succesfully at Database");
-    }else {
-        echo "Cant create Tables at Database. Check your credentials";
-    }
 }
 
 function getCurrentDate()
