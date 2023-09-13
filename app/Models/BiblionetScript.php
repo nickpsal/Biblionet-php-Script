@@ -17,4 +17,15 @@
             'InsertedPublishers',
             'InsertedBooks'
         ];        
+        protected $insertAllowedColumns = [
+            'id' => 'INT AUTO_INCREMENT PRIMARY KEY',
+            'lastDate' => 'VARCHAR(255)',
+            'InsertedMonth' => 'VARCHAR(255)',
+            'InsertedYear' => 'VARCHAR(255)',
+            'InsertedPage' => 'VARCHAR(255)',     
+            'InsertedAuthors' => 'VARCHAR(255)',
+            'InsertedCategories' => 'VARCHAR(255)',
+            'InsertedPublishers' => 'VARCHAR(255)',
+            'InsertedBooks' => 'VARCHAR(255)'
+        ]; 
     }

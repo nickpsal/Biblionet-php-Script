@@ -1,4 +1,38 @@
 <?php
+
+function checkDatabaseTables() {
+    $User = new User();
+    $biblionet = new biblionetScript();
+    $res = $User->checkifTableexists();
+    $res2 = $biblionet->checkifTableexists();
+    if ($res == false) {
+        initialiseUserTable();
+    }
+    if ($res2 == false) {
+        initialiseBiblionetScriptTable();
+    }
+}
+
+function initialiseUserTable() {
+    $User = new User();
+    $res1 = $User->createTable();
+    $data['fullname'] = "datatex.gr";
+    $data['username'] = "nickpsal";
+    $password = password_hash("NIKOS2908biblionet",PASSWORD_DEFAULT);
+    $data['password'] = $password;
+    $res2 = $User->insert($data);
+}
+
+function initialiseBiblionetScriptTable() {
+    $biblionetScript = new biblionetScript();
+    $res = $biblionetScript->createTable();
+    if ($res) {
+        message("Table User created succesfully at Database");
+    }else {
+        echo "Cant create Tables at Database. Check your credentials";
+    }
+}
+
 function getCurrentDate()
 {
     // Set the timezone to GMT+3 (Eastern European Time)
@@ -17,7 +51,8 @@ function getCurrentDate2()
     return $date->format('Y-m-d H:i');
 }
 
-function  getLastgrabDate() {
+function  getLastgrabDate()
+{
     $lastDate = new biblionetScript();
     $res = $lastDate->getLastDate();
     if ($res != false) {
@@ -51,7 +86,7 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
     $bookData = grabJsonBookData($monthNumber, $YearNumber, $PageNumber);
     if (is_array($bookData)) {
         foreach ($bookData as $book) {
-            for ($i=0; $i<50; $i++) {
+            for ($i = 0; $i < 50; $i++) {
                 if (isset($book[$i]->Title)) {
                     $Booktitle = $book[$i]->Title;
                     //remoce special characters from title
@@ -113,13 +148,13 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                 //checking if author exists in Database 
                 $authorsFromDB = $Abauthor->find_all();
                 $authorfound = false;
-                foreach($authorsFromDB as $aut) {
+                foreach ($authorsFromDB as $aut) {
                     if ($aut->lastname == $authorSurname && $aut->name == $authorName) {
                         $authorfound = true;
                     }
                 }
                 if (!$authorfound) {
-                     //Creating sql query for author table in database
+                    //Creating sql query for author table in database
                     // Remove spaces and make it lowercase
                     $alias = strtolower(str_replace(' ', '', $alias));
                     //$query = "INSERT IGNORE INTO mcpyv_abauthor (lastname,name,alias,image,description,checked_out,checked_out_time,metakey,metadesc,state,language) VALUES ('$authorSurname','$authorName','$alias','$authorPhoto','" . str_replace(array('<<', '"', "'"), ' ', str_replace(array("\r", "\n"), ' ', $authorBio)) . "','0','0000-00-00 00:00:00','','','0','*');";
@@ -132,18 +167,18 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                     $data1['description'] = str_replace(array('<<', '"', "'"), ' ', str_replace(array("\r", "\n"), ' ', $authorBio));
                     $data1['checked_out'] = '0';
                     $data1['checked_out_time'] = '0000-00-00 00:00:00';
-                    $data1['metakey'] = ''; 
+                    $data1['metakey'] = '';
                     $data1['metadesc'] = '';
                     $data1['state'] = '0';
                     $data1['language'] = '*';
                     //$res = $Abauthor->query($query);
                     $res = $Abauthor->insert($data1);
-                    $authors_counter ++;
+                    $authors_counter++;
                 }
                 //checking if category exists in Database 
                 $categoryFromDB = $Abcategories->find_all();
                 $categoryFound = false;
-                foreach($categoryFromDB as $cat){
+                foreach ($categoryFromDB as $cat) {
                     if ($cat->title == $bookCategory) {
                         $categoryFound = true;
                     }
@@ -154,7 +189,7 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                     //find lft from category and calculate rgt
                     $lft = $resID->rgt;
                     $rgt = $lft + 1;
-                     //Creating sql query for category table in database
+                    //Creating sql query for category table in database
                     $category_alias = slug_gen2($bookCategory);
                     $category_path = 'alla-vivlia/' . $category_alias;
                     //$query = "INSERT IGNORE INTO mcpyv_abcategories (asset_id,parent_id,lft,rgt,level,path,extension,title,alias,note,description,published,checked_out,checked_out_time,access,params,metadesc,metakey,metadata,created_user_id,created_time,modified_user_id,modified_time,hits,language,version) VALUES ('$new_isset_id','4','$lft','$rgt','2','$category_path','com_abook','$bookCategory','$category_alias','','','1','0','$date2','1','{\"category_layout\":\"\",\"image\":\"\",\"alt_title\":\"\"}','', '', '{\"author\":\"\",\"robots\":\"\"}', '835', '$date2', '0', '0000-00-00 00:00:00', 0, '*', 1);";
@@ -180,7 +215,7 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                     $data2['metadata2'] = $bookCategory;
                     $data2['created_user_id'] = '835';
                     $data2['created_time'] = #date2;
-                    $data2['modified_user_id'] = '';
+                        $data2['modified_user_id'] = '';
                     $data2['modified_time'] = '0000-00-00 00:00:00';
                     $data2['hits'] = 0;
                     $data2['language'] = '*';
@@ -192,12 +227,12 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                     $res3 = $Abcategories->update(4, $updatesData1);
                     $res4 = $Abcategories->update(1, $updatesData2);
                     //Ending Creating sql query for category table in database
-                    $categorys_counter ++;
+                    $categorys_counter++;
                 }
                 //checking if publisher exists in Database 
                 $EditorFromDB = $Abeditor->find_all();
                 $EditorFound = false;
-                foreach($EditorFromDB as $editor) {
+                foreach ($EditorFromDB as $editor) {
                     if ($editor->name == $publisherName) {
                         $EditorFound = true;
                     }
@@ -218,12 +253,12 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                     $data3['language'] = '*';
                     $res5 = $Abeditor->insert($data3);
                     //Ending Creating sql query for publiser table in Database
-                    $publishers_counter ++;
+                    $publishers_counter++;
                 }
                 //checking if book exists in Database 
                 $BooksFromDb = $Abbook->find_all();
                 $BookFound = false;
-                foreach($BooksFromDb as $b) {
+                foreach ($BooksFromDb as $b) {
                     if ($b->title == $Booktitle) {
                         $BookFound = true;
                     }
@@ -292,7 +327,7 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                     $data4['editedby'] = 0;
                     $res6 = $Abbook->insert($data4);
                     //End Creating sql query for books table in database
-                    $books_counter ++;
+                    $books_counter++;
                 }
                 //assosiating Author with Book
                 $datatoFind3['title'] = $Booktitle;
@@ -326,7 +361,8 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
     return $returned_data;
 }
 
-function grabJsonBookData($monthNumber, $YearNumber, $PageNumber) {
+function grabJsonBookData($monthNumber, $YearNumber, $PageNumber)
+{
     $url = 'https://biblionet.gr/wp-json/biblionetwebservice/get_month_titles';
     // Initialize cURL session
     $curl = curl_init($url);
@@ -392,14 +428,15 @@ function grabJsonAuthorData($personId)
     return $data;
 }
 
-function get_current_isset_id() {
+function get_current_isset_id()
+{
     $cat = new Abcategories;
     $book = new Abbook;
     $asset_id1 = $book->getMax("asset_id");
     $asset_id2 = $cat->getMax("asset_id");
     if ($asset_id1[0]->max_value > $asset_id2[0]->max_value) {
         return $asset_id1[0]->max_value;
-    }else {
+    } else {
         return $asset_id2[0]->max_value;
     }
 }
@@ -411,12 +448,13 @@ function redirect($page)
 }
 
 //show message only once
-function message($msg = '',$erase = false){
-    if(!empty($msg)){
+function message($msg = '', $erase = false)
+{
+    if (!empty($msg)) {
         $_SESSION['message'] = $msg;
-    }else if(!empty($_SESSION['message'])){
+    } else if (!empty($_SESSION['message'])) {
         $msg = $_SESSION['message'];
-        if($erase){
+        if ($erase) {
             unset($_SESSION['message']);
         }
         return $msg;
@@ -424,9 +462,10 @@ function message($msg = '',$erase = false){
     return false;
 }
 
-function download_Cover_Image($coverImageURL, $filename)  {
+function download_Cover_Image($coverImageURL, $filename)
+{
     //
-    $localPath = CoverImagesPath . $filename; 
+    $localPath = CoverImagesPath . $filename;
     // Download the image and save it locally
     $content = @file_get_contents($coverImageURL);
     if ($content !== false) {
@@ -434,8 +473,9 @@ function download_Cover_Image($coverImageURL, $filename)  {
     }
 }
 
-function downlaod_Author_image($AuthorImageURL, $filename) {
-    $localPath = AuthorsImagePath . $filename; 
+function downlaod_Author_image($AuthorImageURL, $filename)
+{
+    $localPath = AuthorsImagePath . $filename;
     // Download the image and save it locally
     $content = @file_get_contents($AuthorImageURL);
     if ($content  !== false) {
@@ -443,26 +483,36 @@ function downlaod_Author_image($AuthorImageURL, $filename) {
     }
 }
 
-function slug_gen($lastname, $firstname) {
-    $greek_characters = array('α','ά','Ά','Α','β','Β','γ','Γ','δ','Δ','ε','έ','Ε','Έ','ζ','Ζ','η','ή','Η','θ','Θ',
-    'ι','ί','ϊ','ΐ','Ι','Ί','κ','Κ','λ','Λ','μ','Μ','ν','Ν','ξ','Ξ','ο','ό','Ο','Ό','π','Π','ρ','Ρ','σ',
-    'ς','Σ','τ','Τ','υ','ύ','Υ','Ύ','φ','Φ','χ','Χ','ψ','Ψ','ω','ώ','Ω','Ώ', ' ');
-    $greeklish_characters = array('a', 'a','A','A','b','B','g','G','d','D','e','e','E','E','z','Z','i','i','I','th','Th',
-    'i','i','i','i','I','I','k','K','l','L','m','M','n','N','x','X','o','o','O','O','p','P' ,'r','R','s',
-    's','S','t','T','u','U','y','Y','f','F','x','X','ps','Ps','o','o','O','O', '-');
+function slug_gen($lastname, $firstname)
+{
+    $greek_characters = array(
+        'α', 'ά', 'Ά', 'Α', 'β', 'Β', 'γ', 'Γ', 'δ', 'Δ', 'ε', 'έ', 'Ε', 'Έ', 'ζ', 'Ζ', 'η', 'ή', 'Η', 'θ', 'Θ',
+        'ι', 'ί', 'ϊ', 'ΐ', 'Ι', 'Ί', 'κ', 'Κ', 'λ', 'Λ', 'μ', 'Μ', 'ν', 'Ν', 'ξ', 'Ξ', 'ο', 'ό', 'Ο', 'Ό', 'π', 'Π', 'ρ', 'Ρ', 'σ',
+        'ς', 'Σ', 'τ', 'Τ', 'υ', 'ύ', 'Υ', 'Ύ', 'φ', 'Φ', 'χ', 'Χ', 'ψ', 'Ψ', 'ω', 'ώ', 'Ω', 'Ώ', ' '
+    );
+    $greeklish_characters = array(
+        'a', 'a', 'A', 'A', 'b', 'B', 'g', 'G', 'd', 'D', 'e', 'e', 'E', 'E', 'z', 'Z', 'i', 'i', 'I', 'th', 'Th',
+        'i', 'i', 'i', 'i', 'I', 'I', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'x', 'X', 'o', 'o', 'O', 'O', 'p', 'P', 'r', 'R', 's',
+        's', 'S', 't', 'T', 'u', 'U', 'y', 'Y', 'f', 'F', 'x', 'X', 'ps', 'Ps', 'o', 'o', 'O', 'O', '-'
+    );
     $lastname = str_replace($greek_characters, $greeklish_characters, $lastname);
     $firstname = str_replace($greek_characters, $greeklish_characters, $firstname);
     $slug = $lastname . "-" . $firstname;
     return $slug;
 }
 
-function slug_gen2($category) {
-    $greek_characters = array('α','ά','Ά','Α','β','Β','γ','Γ','δ','Δ','ε','έ','Ε','Έ','ζ','Ζ','η','ή','Η','θ','Θ',
-    'ι','ί','ϊ','ΐ','Ι','Ί','κ','Κ','λ','Λ','μ','Μ','ν','Ν','ξ','Ξ','ο','ό','Ο','Ό','π','Π','ρ','Ρ','σ',
-    'ς','Σ','τ','Τ','υ','ύ','Υ','Ύ','φ','Φ','χ','Χ','ψ','Ψ','ω','ώ','Ω','Ώ', ' ');
-    $greeklish_characters = array('a', 'a','A','A','b','B','g','G','d','D','e','e','E','E','z','Z','i','i','I','th','Th',
-    'i','i','i','i','I','I','k','K','l','L','m','M','n','N','x','X','o','o','O','O','p','P' ,'r','R','s',
-    's','S','t','T','u','U','y','Y','f','F','x','X','ps','Ps','o','o','O','O', '-');
+function slug_gen2($category)
+{
+    $greek_characters = array(
+        'α', 'ά', 'Ά', 'Α', 'β', 'Β', 'γ', 'Γ', 'δ', 'Δ', 'ε', 'έ', 'Ε', 'Έ', 'ζ', 'Ζ', 'η', 'ή', 'Η', 'θ', 'Θ',
+        'ι', 'ί', 'ϊ', 'ΐ', 'Ι', 'Ί', 'κ', 'Κ', 'λ', 'Λ', 'μ', 'Μ', 'ν', 'Ν', 'ξ', 'Ξ', 'ο', 'ό', 'Ο', 'Ό', 'π', 'Π', 'ρ', 'Ρ', 'σ',
+        'ς', 'Σ', 'τ', 'Τ', 'υ', 'ύ', 'Υ', 'Ύ', 'φ', 'Φ', 'χ', 'Χ', 'ψ', 'Ψ', 'ω', 'ώ', 'Ω', 'Ώ', ' '
+    );
+    $greeklish_characters = array(
+        'a', 'a', 'A', 'A', 'b', 'B', 'g', 'G', 'd', 'D', 'e', 'e', 'E', 'E', 'z', 'Z', 'i', 'i', 'I', 'th', 'Th',
+        'i', 'i', 'i', 'i', 'I', 'I', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'x', 'X', 'o', 'o', 'O', 'O', 'p', 'P', 'r', 'R', 's',
+        's', 'S', 't', 'T', 'u', 'U', 'y', 'Y', 'f', 'F', 'x', 'X', 'ps', 'Ps', 'o', 'o', 'O', 'O', '-'
+    );
     $slug = str_replace($greek_characters, $greeklish_characters, $category);
     return $slug;
 }

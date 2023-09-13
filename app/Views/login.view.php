@@ -13,9 +13,9 @@
 <div class="container">
     <div class="custom-text">
         <?php
-        if (message()) {
-            echo message('', true);
-        }
+            if (message()) {
+                echo message('', true);
+            }
         ?>
     </div>
 </div>

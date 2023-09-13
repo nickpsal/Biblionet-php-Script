@@ -4,6 +4,7 @@
         private $method = 'index';
         public function __construct()
         {
+            checkDatabaseTables();
             $url = $this->splitURL();
             $filename = "../app/Controllers/" . ucfirst($url[0]) . ".php";
             if (file_exists($filename)){

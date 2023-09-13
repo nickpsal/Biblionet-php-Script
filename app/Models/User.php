@@ -13,4 +13,10 @@
             'username',
             'password'
         ];
+        protected $insertAllowedColumns = [
+            'id' => 'INT AUTO_INCREMENT PRIMARY KEY',
+            'fullname' => 'VARCHAR(255)',
+            'username' => 'VARCHAR(255)',
+            'password' => 'VARCHAR(255)'
+        ];
     }
