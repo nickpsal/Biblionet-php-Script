@@ -78,7 +78,9 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
     $Abeditor = new Abeditor();
     $abbookAuth = new Abbookauth();
     $lastDate = new biblionetScript();
+    //grab data
     $bookData = grabJsonBookData($monthNumber, $YearNumber, $PageNumber);
+    //imserting data
     if (is_array($bookData)) {
         foreach ($bookData as $book) {
             for ($i = 0; $i < 50; $i++) {
