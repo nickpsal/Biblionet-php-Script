@@ -26,7 +26,7 @@
                     $Month = $_POST['month'];
                     $Year = $_POST['year'];
                     $PageNumber = $_POST['pagenumber'];
-                    $data = BookData($Month, $Year, $PageNumber);
+                    $data = saveBookData($Month, $Year, $PageNumber);
                     $message = "Αποτελέσματα : Περάστηκαν με Επιτυχία </br>";
                     $message .= "Αριθμός Συγγραφέων : ". $data['author_counter'] . "</br>";
                     $message .= "Αριθμός Κατηγοριών : ". $data['category_counter'] . "</br>";

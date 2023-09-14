@@ -62,7 +62,7 @@ function showData($stuff)
     echo "</pre>";
 }
 
-function BookData($monthNumber, $YearNumber, $PageNumber)
+function saveBookData($monthNumber, $YearNumber, $PageNumber)
 {
     $date = getCurrentDate();
     $date2 = getCurrentDate2();
@@ -154,8 +154,6 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                     //Creating sql query for author table in database
                     // Remove spaces and make it lowercase
                     $alias = strtolower(str_replace(' ', '', $alias));
-                    //$query = "INSERT IGNORE INTO mcpyv_abauthor (lastname,name,alias,image,description,checked_out,checked_out_time,metakey,metadesc,state,language) VALUES ('$authorSurname','$authorName','$alias','$authorPhoto','" . str_replace(array('<<', '"', "'"), ' ', str_replace(array("\r", "\n"), ' ', $authorBio)) . "','0','0000-00-00 00:00:00','','','0','*');";
-                    //End Creating sql query for author table in database 
                     //run each query to Database;
                     $data1['lastname'] = $authorSurname;
                     $data1['name'] = $authorName;
@@ -168,7 +166,6 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                     $data1['metadesc'] = '';
                     $data1['state'] = '0';
                     $data1['language'] = '*';
-                    //$res = $Abauthor->query($query);
                     $res = $Abauthor->insert($data1);
                     $authors_counter++;
                 }
@@ -189,7 +186,6 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                     //Creating sql query for category table in database
                     $category_alias = slug_gen2($bookCategory);
                     $category_path = 'alla-vivlia/' . $category_alias;
-                    //$query = "INSERT IGNORE INTO mcpyv_abcategories (asset_id,parent_id,lft,rgt,level,path,extension,title,alias,note,description,published,checked_out,checked_out_time,access,params,metadesc,metakey,metadata,created_user_id,created_time,modified_user_id,modified_time,hits,language,version) VALUES ('$new_isset_id','4','$lft','$rgt','2','$category_path','com_abook','$bookCategory','$category_alias','','','1','0','$date2','1','{\"category_layout\":\"\",\"image\":\"\",\"alt_title\":\"\"}','', '', '{\"author\":\"\",\"robots\":\"\"}', '835', '$date2', '0', '0000-00-00 00:00:00', 0, '*', 1);";
                     //run each query to Database;
                     $data2['asset_id'] = $new_isset_id;
                     $data2['parent_id'] = '4';
@@ -217,7 +213,6 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                     $data2['hits'] = 0;
                     $data2['language'] = '*';
                     $data2['version'] = 1;
-                    //$res2 = $Abcategories->query($query);
                     $res2 = $Abcategories->insert($data2);
                     $updatesData1['rgt'] = $rgt + 1;
                     $updatesData2['rgt'] = $rgt + 2;
@@ -236,9 +231,7 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                 }
                 if (!$EditorFound) {
                     //Creating sql query for publiser table in Database
-                    //$query = "INSERT IGNORE INTO mcpyv_abeditor (name,alias,description,checked_out,checked_out_time,metakey,metadesc,state,language) VALUES ('$publisherName','$publiserSlug','','0','0000-00-00 00:00:00','','','0','*');";
                     //run each query to Database
-                    //$res = $Abeditor->query($query);
                     $data3['name'] = $publisherName;
                     $data3['alias'] = $publiserSlug;
                     $data3['description'] = '';
@@ -269,10 +262,8 @@ function BookData($monthNumber, $YearNumber, $PageNumber)
                     $res = $Abcategories->get_first_from_db($datatoFind2);
                     $categoryID = $res->id;
                     //Creating sql query for books table in database
-                    //$query = "INSERT IGNORE INTO `mcpyv_abbook` (`asset_id`, `title`, `subtitle`, `alias`, `ideditor`, `price`, `pag`, `pag_index`, `user_id`, `created_by_alias`, `description`, `other_info`, `image`, `docsfolder`, `file`, `year`, `idlocation`, `idlibrary`, `vote`, `numvote`, `hits`, `state`, `catid`, `qty`, `isbn`, `issn`, `doi`, `numpublication`, `approved`, `userid`, `url`, `url_label`, `url2`, `url2_label`, `url3`, `url3_label`, `dateinsert`, `catalogo`, `checked_out`, `checked_out_time`, `access`, `metakey`, `metadesc`, `metadata`, `language`, `ordering`, `params`, `note`, `editedby`) VALUES ('$new_isset_id', '$Booktitle', '', '$bookalias', $editorID, '$BookPrice', '$BookPages', 0, 835, '', '$BookDesc', '', '$coverImage', NULL, '', '$YearNumber', 0, 0, 0, 0, 0, 1, '$categoryID', 1, '$isbnNumber', '', '', 0, 0, 0, '', '', '', '', '', '', '$date2', '', '0', '0000-00-00 00:00:00', 1, '$Booktitle', '$Booktitle', '{\"robots\":\"index, follow\",\"author\":\"\",\"rights\":\"\"}', '*', 0, '{\"show_author\":\"\",\"author_order\":\"\",\"linkto\":\"\",\"linkimage\":\"\",\"view_date\":\"\",\"show_icons\":\"\",\"show_print_icon\":\"\",\"show_hits\":\"\",\"breadcrumb\":\"\",\"search\":\"\",\"view_rate\":\"\",\"book_layout\":\"\",\"view_pag_index\":\"\"}', '', 0);";
                     $new_isset_id++;
                     //run each query to Database
-                    //$res = $Abbook->query($query);
                     $data4['asset_id'] = $new_isset_id;
                     $data4['title'] = $Booktitle;
                     $data4['subtitle'] = '';
