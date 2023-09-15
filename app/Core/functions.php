@@ -90,7 +90,7 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     $lastDate = new biblionetScript();
     $returnedResult = grabJsonBookData($monthNumber, $YearNumber, $PageNumber);
     if (is_array($returnedResult)) {
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < sizeof($returnedResult[0]); $i++) {
             if (isset($returnedResult[0][$i]->Title)) {
                 $Booktitle = $returnedResult[0][$i]->Title;
                 //remoce special characters from title
