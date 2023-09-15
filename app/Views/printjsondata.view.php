@@ -16,15 +16,17 @@
 <div class="container">
     <form action="" method="post">
         <textarea class="form-control centered-textarea" id="data" name="data" rows="10" readonly>
+            <pre>
                 <?php
                     if ($data != null) {
                         for ($page=0; $page<$data['PageNumber']; $page++) {
                             for ($i = 0; $i < 49; $i++) {
-                                showData($data['data'][$page][0][$i]);
+                                print_r($data['data'][$page][0][$i]);
                             }
                         }
                     }
                 ?>
+            </pre>
         </textarea>
         <div class="form-group">
             <label for="month">Εισαγωγή του Μήνα:</label>
