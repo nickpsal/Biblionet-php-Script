@@ -50,8 +50,7 @@
                 }else if ($request->is_post()) {
                     $Month = $_POST['month'];
                     $Year = $_POST['year'];
-                    $PageNumber = $_POST['pagenumber'];
-                    $data['json'] = grabJsonBookData($Month, $Year, $PageNumber);
+                    $data = printJsonBookData($Month, $Year);
                     $this->view('printjsondata', $data);
                 }
             }

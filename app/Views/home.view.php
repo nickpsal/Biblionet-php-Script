@@ -16,9 +16,7 @@
             <?php
                 
                 if ($data['datetime'] != false) {
-                    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $data['datetime']);
-                    $formattedDate = $dateTime->format('d-m-Y H:i:s');
-                    echo "Τελευταία Ημερομηνία που έτρεξες την Εφαρμογή : " . $formattedDate;
+                    echo "Τελευταία Ημερομηνία που έτρεξες την Εφαρμογή : " . $data['datetime'];
                 }
             ?>
         </div>
