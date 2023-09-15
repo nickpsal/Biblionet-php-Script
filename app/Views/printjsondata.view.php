@@ -18,7 +18,11 @@
         <textarea class="form-control centered-textarea" id="data" name="data" rows="10" readonly>
                 <?php
                     if ($data != null) {
-                        showData($data['data']);
+                        for ($page=0; $page<$data['PageNumber']; $page++) {
+                            for ($i = 0; $i < 49; $i++) {
+                                showData($data['data'][$page][0][$i]);
+                            }
+                        }
                     }
                 ?>
         </textarea>
