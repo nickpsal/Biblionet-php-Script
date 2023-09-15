@@ -91,6 +91,10 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     $returnedResult = grabJsonBookData($monthNumber, $YearNumber, $PageNumber);
     if (is_array($returnedResult)) {
         for ($i = 0; $i < sizeof($returnedResult[0]); $i++) {
+            if (isset($returnedResult[0][$i]->WriterID)) {
+                $writerID = $returnedResult[0][$i]->WriterID;
+            }
+            $authorData = grabJsonAuthorData($writerID);
             if (isset($returnedResult[0][$i]->Title)) {
                 $Booktitle = $returnedResult[0][$i]->Title;
                 //remoce special characters from title
@@ -127,10 +131,6 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $publisherName = $returnedResult[0][$i]->Publisher;
             }
             $publiserSlug = slug_gen2($publisherName);
-            if (isset($returnedResult[0][$i]->WriterID)) {
-                $writerID = $returnedResult[0][$i]->WriterID;
-            }
-            $authorData = grabJsonAuthorData($writerID);
             if (isset($authorData[0][0]->Photo)) {
                 $img = $authorData[0][0]->Photo;
                 $authorPhotoURL = 'https://www.biblionet.gr' . $img;
@@ -219,7 +219,7 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $data2['metadata2'] = $bookCategory;
                 $data2['created_user_id'] = '835';
                 $data2['created_time'] = #date2;
-                    $data2['modified_user_id'] = '';
+                $data2['modified_user_id'] = '';
                 $data2['modified_time'] = '0000-00-00 00:00:00';
                 $data2['hits'] = 0;
                 $data2['language'] = '*';
