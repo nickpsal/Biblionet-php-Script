@@ -90,33 +90,33 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     $lastDate = new biblionetScript();
     $returnedResult = grabJsonBookData($monthNumber, $YearNumber, $PageNumber);
     if (is_array($returnedResult)) {
-        for ($i = 0; $i < sizeof($returnedResult[0]); $i++) {
-            if (isset($returnedResult[0][$i]->WriterID)) {
-                $writerID = $returnedResult[0][$i]->WriterID;
+        foreach($returnedResult[0] as $book) {
+            if (isset($book->WriterID)) {
+                $writerID = $book->WriterID;
             }
             $authorData = grabJsonAuthorData($writerID);
-            if (isset($returnedResult[0][$i]->Title)) {
-                $data4['title'] = $returnedResult[0][$i]->Title;
+            if (isset($book->Title)) {
+                $data4['title'] = $book->Title;
                 //remoce special characters from title
                 $data4['title'] = str_replace(':', '', $data4['title']);
                 $data4['title'] = str_replace('&', '', $data4['title']);
                 $data4['alias'] = slug_gen2($data4['title']);
             }
-            if (isset($returnedResult[0][$i]->Category)) {
-                $data2['title'] = $returnedResult[0][$i]->Category;
+            if (isset($book->Category)) {
+                $data2['title'] = $book->Category;
             }
-            if (isset($returnedResult[0][$i]->Price)) {
-                $data4['price'] = $returnedResult[0][$i]->Price;
+            if (isset($book->Price)) {
+                $data4['price'] = $book->Price;
                 $data4['price'] = number_format($data4['price'] , 2);
             }
-            if (isset($returnedResult[0][$i]->PageNo)) {
-                $data4['pag'] = $returnedResult[0][$i]->PageNo;
+            if (isset($book->PageNo)) {
+                $data4['pag'] = $book->PageNo;
             }
-            if (isset($returnedResult[0][$i]->Summary)) {
-                $data4['description'] = $returnedResult[0][$i]->Summary;
+            if (isset($book->Summary)) {
+                $data4['description'] = $book->Summary;
             }
-            if (isset($returnedResult[0][$i]->CoverImage)) {
-                $img = $returnedResult[0][$i]->CoverImage;
+            if (isset($book->CoverImage)) {
+                $img = $book->CoverImage;
                 $coverImageURL = 'https://www.biblionet.gr' . $img;
                 $filename = basename($coverImageURL);
                 //downlaod book cover image
@@ -124,11 +124,15 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 //local image path
                 $data4['image'] = "images/biblionet/" . $filename;
             }
-            if (isset($returnedResult[0][$i]->ISBN)) {
-                $data4['isbn'] = $returnedResult[0][$i]->ISBN;
+            if (isset($book->ISBN)) {
+                $data4['isbn'] = $book->ISBN;
             }
-            if (isset($returnedResult[0][$i]->Publisher)) {
-                $data3['name']= $returnedResult[0][$i]->Publisher;
+            if (isset($book->Publisher)) {
+                if ($book->Publisher == "Κουίντα") {
+                    $data3['name'] = "Εκδοσεις ΚΟΥΙΝΤΑ";
+                }else {
+                    $data3['name'] = $book->Publisher;
+                }
             }
             $publiserSlug = slug_gen2($data3['name']);
             if (isset($authorData[0][0]->Photo)) {
