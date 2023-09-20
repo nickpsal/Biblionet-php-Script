@@ -94,7 +94,6 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
             if (isset($book->WriterID)) {
                 $writerID = $book->WriterID;
             }
-            $authorData = grabJsonAuthorData($writerID);
             if (isset($book->Title)) {
                 $data4['title'] = $book->Title;
                 //remoce special characters from title
@@ -134,6 +133,7 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                     $data3['name'] = $book->Publisher;
                 }
             }
+            $authorData = grabJsonAuthorData($writerID);
             $publiserSlug = slug_gen2($data3['name']);
             if (isset($authorData[0][0]->Photo)) {
                 $img = $authorData[0][0]->Photo;
@@ -311,19 +311,19 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $data4['editedby'] = 0;
                 $res6 = $Abbook->insert($data4);
                 //End Creating sql query for books table in database
+                 //assosiating Author with Book
+                $datatoFind3['title'] = $data4['title'];
+                $datatoFind4['lastname'] = $data1['lastname'];
+                $datatoFind4['name'] = $data1['name'];
+                $res7 = $Abbook->get_first_from_db($datatoFind3);
+                $res8 = $Abauthor->get_first_from_db($datatoFind4);
+                $BookID = $res7->id;
+                $AuthorID = $res8->id;
+                $data5['idbook'] = $BookID;
+                $data5['idauth'] = $AuthorID;
+                $res7 = $abbookAuth->insert($data5);
                 $books_counter++;
             }
-            //assosiating Author with Book
-            $datatoFind3['title'] = $data4['title'];
-            $datatoFind4['lastname'] = $data1['lastname'];
-            $datatoFind4['name'] = $data1['name'];
-            $res7 = $Abbook->get_first_from_db($datatoFind3);
-            $res8 = $Abauthor->get_first_from_db($datatoFind4);
-            $BookID = $res7->id;
-            $AuthorID = $res8->id;
-            $data5['idbook'] = $BookID;
-            $data5['idauth'] = $AuthorID;
-            $res7 = $abbookAuth->insert($data5);
             // end saving data to database
             //---------------------------------
         }
