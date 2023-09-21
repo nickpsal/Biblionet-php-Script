@@ -317,10 +317,8 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $datatoFind4['name'] = $data1['name'];
                 $res7 = $Abbook->get_first_from_db($datatoFind3);
                 $res8 = $Abauthor->get_first_from_db($datatoFind4);
-                $BookID = $res7->id;
-                $AuthorID = $res8->id;
-                $data5['idbook'] = $BookID;
-                $data5['idauth'] = $AuthorID;
+                $data5['idbook'] = $res7->id;
+                $data5['idauth'] = $res8->id;
                 $res10 = $abbookAuth->insert($data5);
                 $books_counter++;
                 // setting data to menu database
@@ -332,17 +330,17 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $rgt = $lft + 1;
                 $data6['menutype'] = 'hidden';
                 $data6['title'] = $data4['title'];
-                $data6['alias'] = $data4['alias'];
+                $data6['alias'] =   $data4['alias'];
                 $data6['note'] = '';
-                $data6['path'] = $data4['alias'];
+                //$data6['path'] = $data4['alias'];
                 $data6['link'] = $categorylink;
                 $data6['type'] = 'component';
                 $data6['published'] = 1;
                 $data6['parent_id'] = 1;
                 $data6['level'] = 1;
-                $data6['component_id'] = 10386;
-                $data6['checked_out'] = '';
-                $data6['checked_out_time'] = '';
+                $data6['component_id'] = '10386';
+                $data6['checked_out'] = null;
+                $data6['checked_out_time'] = null;
                 $data6['browserNav'] = 0;
                 $data6['access'] = 1;
                 $data6['img'] = ' ';
@@ -353,8 +351,8 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $data6['home'] = 0;
                 $data6['language'] = '*';
                 $data6['client_id'] = 0;
-                $data6['publish_up'] = '';
-                $data6['publish_down'] = '';
+                $data6['publish_up'] = null;
+                $data6['publish_down'] = null;
                 $res12 = $menu->insert($data6);
                 $updatesData3['rgt'] = $rgt + 1;
                 $res4 = $menu->update(1, $updatesData3);
@@ -584,6 +582,7 @@ function slug_gen2($category)
         'i', 'i', 'i', 'i', 'I', 'I', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'x', 'X', 'o', 'o', 'O', 'O', 'p', 'P', 'r', 'R', 's',
         's', 'S', 't', 'T', 'u', 'U', 'y', 'Y', 'f', 'F', 'x', 'X', 'ps', 'Ps', 'o', 'o', 'O', 'O', '-'
     );
+    $slug = str_replace('-', ' ', $category);
     $slug = str_replace($greek_characters, $greeklish_characters, $category);
     return $slug;
 }
