@@ -88,9 +88,10 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     $Abeditor = new Abeditor();
     $abbookAuth = new Abbookauth();
     $lastDate = new biblionetScript();
+    $menu = new Menu();
     $returnedResult = grabJsonBookData($monthNumber, $YearNumber, $PageNumber);
     if (is_array($returnedResult)) {
-        foreach($returnedResult[0] as $book) {
+        foreach ($returnedResult[0] as $book) {
             if (isset($book->WriterID)) {
                 $writerID = $book->WriterID;
             }
@@ -106,7 +107,7 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
             }
             if (isset($book->Price)) {
                 $data4['price'] = $book->Price;
-                $data4['price'] = number_format($data4['price'] , 2);
+                $data4['price'] = number_format($data4['price'], 2);
             }
             if (isset($book->PageNo)) {
                 $data4['pag'] = $book->PageNo;
@@ -129,7 +130,7 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
             if (isset($book->Publisher)) {
                 if ($book->Publisher == "Κουίντα") {
                     $data3['name'] = "Εκδοσεις ΚΟΥΙΝΤΑ";
-                }else {
+                } else {
                     $data3['name'] = $book->Publisher;
                 }
             }
@@ -147,7 +148,6 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $data1['lastname'] = $authorData[0][0]->Surname;
                 // Concatenate last name and first name
                 $data1['alias'] = slug_gen($data1['lastname'], $data1['name']);
-
             }
             if (isset($authorData[0][0]->Biography)) {
                 $data1['description'] = str_replace(array('<<', '"', "'"), ' ', str_replace(array("\r", "\n"), ' ', $authorData[0][0]->Biography));
@@ -311,7 +311,7 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $data4['editedby'] = 0;
                 $res6 = $Abbook->insert($data4);
                 //End Creating sql query for books table in database
-                 //assosiating Author with Book
+                //assosiating Author with Book
                 $datatoFind3['title'] = $data4['title'];
                 $datatoFind4['lastname'] = $data1['lastname'];
                 $datatoFind4['name'] = $data1['name'];
@@ -321,11 +321,43 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $AuthorID = $res8->id;
                 $data5['idbook'] = $BookID;
                 $data5['idauth'] = $AuthorID;
-                $res9 = $abbookAuth->where($data5);
-                if ($res9 != false) {
-                    $res10 = $abbookAuth->insert($data5);
-                }
+                $res10 = $abbookAuth->insert($data5);
                 $books_counter++;
+                // setting data to menu database
+                $categorylink = "index.php?option=com_abook&view=book&id=" . $data5['idbook'];
+                $datatoFindID['id'] = '1';
+                $resID = $menu->get_first_from_db($datatoFindID);
+                //find lft from category and calculate rgt
+                $lft = $resID->rgt;
+                $rgt = $lft + 1;
+                $data6['menutype'] = 'hidden';
+                $data6['title'] = $data4['title'];
+                $data6['alias'] = $data4['alias'];
+                $data6['note'] = '';
+                $data6['path'] = $data4['alias'];
+                $data6['link'] = $categorylink;
+                $data6['type'] = 'component';
+                $data6['published'] = 1;
+                $data6['parent_id'] = 1;
+                $data6['level'] = 1;
+                $data6['component_id'] = 10386;
+                $data6['checked_out'] = '';
+                $data6['checked_out_time'] = '';
+                $data6['browserNav'] = 0;
+                $data6['access'] = 1;
+                $data6['img'] = ' ';
+                $data6['template_style_id'] = 0;
+                $data6['params'] = '{"breadcrumb":"","search":"0","show_description":"","show_author":"","show_author_bio":"","linkimage":"","view_date":"","show_icons":"","show_print_icon":"","show_isbn":"","show_issn":"","show_numpublication":"","show_library":"","show_location":"","show_catalog":"","show_category":"","show_editor":"","show_pag":"","show_hits":"","show_tags":"","show_note":"","view_rate":"","book_layout":"","show_bookcover":"","show_bookcover_link":"","bookcover_position":"","show_writtenby":"","show_description_title":"","name_display":"","author_order":"","menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":"","helixultimatemenulayout":"","helixultimate_enable_page_title":"0","helixultimate_page_title_alt":"","helixultimate_page_subtitle":"","helixultimate_page_title_heading":"h2","helixultimate_page_title_bg_color":"","helixultimate_page_title_bg_image":""}';
+                $data6['lft'] = $lft;
+                $data6['rgt'] = $rgt;
+                $data6['home'] = 0;
+                $data6['language'] = '*';
+                $data6['client_id'] = 0;
+                $data6['publish_up'] = '';
+                $data6['publish_down'] = '';
+                $res12 = $menu->insert($data6);
+                $updatesData3['rgt'] = $rgt + 1;
+                $res4 = $menu->update(1, $updatesData3);
             }
             // end saving data to database
             //---------------------------------

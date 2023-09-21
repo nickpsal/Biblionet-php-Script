@@ -102,8 +102,11 @@ trait Model
             }
         }
         $keys = array_keys($data);
-        $query = "INSERT INTO $this->db_table (" . implode(",", $keys) . ") VALUES (:" . implode(",:", $keys) . ") ";
-        $this->query($query, $data);
+        $query = "INSERT IGNORE INTO $this->db_table (" . implode(",", $keys) . ") VALUES (:" . implode(",:", $keys) . ") ";
+        $res = $this->query($query, $data);
+        if ($res != false) {
+            return true;
+        }
         return false;
     }
 

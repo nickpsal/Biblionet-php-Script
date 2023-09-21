@@ -1,6 +1,6 @@
 <?php
-    define("APP_NAME", "Biblionet Script Version 2.5");
-    define("APP_DESC", "Biblionet Script Version 2.5");
+    define("APP_NAME", "Biblionet Script Version 2.6");
+    define("APP_DESC", "Biblionet Script Version 2.6");
     define("DEBUG", true);
     define('biblionetUsername', 'nickpsal@gmail.com');
     define('biblionetPassword', ')5Ac4m%AEtbrd1%z$GJKCjRN');
