@@ -321,7 +321,10 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $AuthorID = $res8->id;
                 $data5['idbook'] = $BookID;
                 $data5['idauth'] = $AuthorID;
-                $res7 = $abbookAuth->insert($data5);
+                $res9 = $abbookAuth->where($data5);
+                if ($res9 != false) {
+                    $res10 = $abbookAuth->insert($data5);
+                }
                 $books_counter++;
             }
             // end saving data to database
@@ -340,7 +343,7 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     $data6['InsertedCategories'] = $categorys_counter;
     $data6['InsertedPublishers'] = $publishers_counter;
     $data6['InsertedBooks'] = $books_counter;
-    $res8 = $lastDate->insert($data6);
+    $res11 = $lastDate->insert($data6);
     return $returned_data;
 }
 
