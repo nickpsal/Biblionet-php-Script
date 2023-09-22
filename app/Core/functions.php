@@ -89,11 +89,13 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     $abbookAuth = new Abbookauth();
     $lastDate = new biblionetScript();
     $menu = new Menu();
-    $returnedResult = grabJsonBookData($monthNumber, $YearNumber, $PageNumber);
+    //initialize cURL
+    $curl = curl_init();
+    $returnedResult = grabJsonBookData($monthNumber, $YearNumber, $PageNumber, $curl);
     if (is_array($returnedResult)) {
         foreach ($returnedResult[0] as $book) {
             if (isset($book->WriterID)) {
-                $authorData = grabJsonAuthorData($book->WriterID);
+                $authorData = grabJsonAuthorData($book->WriterID, $curl);
             }
             if (isset($book->Title)) {
                 $data4['title'] = $book->Title;
@@ -357,11 +359,9 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     return $returned_data;
 }
 
-function grabJsonBookData($monthNumber, $YearNumber, $PageNumber)
+function grabJsonBookData($monthNumber, $YearNumber, $PageNumber, $curl)
 {
     $url = 'https://biblionet.gr/wp-json/biblionetwebservice/get_month_titles';
-    // Initialize cURL session
-    $curl = curl_init($url);
     // Set cURL options
     $postData = [
         'username' => biblionetUsername,
@@ -369,8 +369,9 @@ function grabJsonBookData($monthNumber, $YearNumber, $PageNumber)
         'month' => $monthNumber,
         'year' => $YearNumber,
         'page' => $PageNumber,
-        'titles_per_page' => 50,
+        'titles_per_page' => 25,
     ];
+    curl_setopt($curl, CURLOPT_URL, $url);
     // Set the request method to POST
     curl_setopt($curl, CURLOPT_POST, true);
     // Set the POST data
@@ -409,7 +410,7 @@ function printJsonBookData($monthNumber, $YearNumber)
             'month' => $monthNumber,
             'year' => $YearNumber,
             'page' => $PageNumber,
-            'titles_per_page' => 50,
+            'titles_per_page' => 25,
         ];
         // Set the request method to POST
         curl_setopt($curl, CURLOPT_POST, true);
@@ -445,17 +446,16 @@ function printJsonBookData($monthNumber, $YearNumber)
     return $returnedResult;
 }
 
-function grabJsonAuthorData($personId)
+function grabJsonAuthorData($personId, $curl)
 {
     $url = 'https://biblionet.gr/wp-json/biblionetwebservice/get_person';
-    // Initialize cURL session
-    $curl = curl_init($url);
     // Set cURL options
     $postData = [
         'username' => biblionetUsername,
         'password' => biblionetPassword,
         'person' => $personId,
     ];
+    curl_setopt($curl, CURLOPT_URL, $url);
     // Set the request method to POST
     curl_setopt($curl, CURLOPT_POST, true);
     // Set the POST data
