@@ -93,7 +93,7 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     if (is_array($returnedResult)) {
         foreach ($returnedResult[0] as $book) {
             if (isset($book->WriterID)) {
-                $writerID = $book->WriterID;
+                $authorData = grabJsonAuthorData($book->WriterID);
             }
             if (isset($book->Title)) {
                 $data4['title'] = $book->Title;
@@ -134,7 +134,6 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                     $data3['name'] = $book->Publisher;
                 }
             }
-            $authorData = grabJsonAuthorData($writerID);
             $publiserSlug = slug_gen2($data3['name']);
             if (isset($authorData[0][0]->Photo)) {
                 $img = $authorData[0][0]->Photo;
@@ -155,14 +154,10 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
             // starting saving data to database
             //---------------------------------
             //checking if author exists in Database 
-            $authorsFromDB = $Abauthor->find_all();
-            $authorfound = false;
-            foreach ($authorsFromDB as $aut) {
-                if ($aut->lastname == $data1['lastname'] && $aut->name == $data1['name']) {
-                    $authorfound = true;
-                }
-            }
-            if (!$authorfound) {
+            $datatofind1['lastname'] = $data1['lastname'];
+            $datatofind1['name'] = $data1['name'];
+            $authorsFromDB = $Abauthor->get_first_from_db($datatofind1);
+            if (empty($authorsFromDB)) {
                 //Creating sql query for author table in database
                 // Remove spaces and make it lowercase
                 //run each query to Database;
@@ -176,14 +171,9 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $authors_counter++;
             }
             //checking if category exists in Database 
-            $categoryFromDB = $Abcategories->find_all();
-            $categoryFound = false;
-            foreach ($categoryFromDB as $cat) {
-                if ($cat->title == $data2['title']) {
-                    $categoryFound = true;
-                }
-            }
-            if (!$categoryFound) {
+            $datatoFind2['title'] = $data2['title'];
+            $categoryFromDB = $Abcategories->get_first_from_db($datatoFind2);
+            if (empty($categoryFromDB)) {
                 $datatoFindID['id'] = '4';
                 $resID = $Abcategories->get_first_from_db($datatoFindID);
                 //find lft from category and calculate rgt
@@ -227,14 +217,9 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $categorys_counter++;
             }
             //checking if publisher exists in Database 
-            $EditorFromDB = $Abeditor->find_all();
-            $EditorFound = false;
-            foreach ($EditorFromDB as $editor) {
-                if ($editor->name == $data3['name']) {
-                    $EditorFound = true;
-                }
-            }
-            if (!$EditorFound) {
+            $datatoFind3['name'] = $data3['name'];
+            $EditorFromDB = $Abeditor->get_first_from_db($datatoFind3);
+            if (empty($EditorFromDB)) {
                 //Creating sql query for publiser table in Database
                 $data3['alias'] = $publiserSlug;
                 $data3['description'] = '';
@@ -249,20 +234,15 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $publishers_counter++;
             }
             //checking if book exists in Database 
-            $BooksFromDb = $Abbook->find_all();
-            $BookFound = false;
-            foreach ($BooksFromDb as $b) {
-                if ($b->title == $data4['title']) {
-                    $BookFound = true;
-                }
-            }
-            if (!$BookFound) {
+            $datatoFind4['title'] = $data4['title'];
+            $BooksFromDb = $Abbook->get_first_from_db($datatoFind4);
+            if (empty($BooksFromDb)) {
                 $data4['description'] = str_replace("'", "", $data4['description']);
-                $datatofind1['name'] = $data3['name'];
-                $res = $Abeditor->get_first_from_db($datatofind1);
+                $datatofind5['name'] = $data3['name'];
+                $res = $Abeditor->get_first_from_db($datatofind5);
                 $editorID = $res->id;
-                $datatoFind2['title'] = $data2['title'];
-                $res = $Abcategories->get_first_from_db($datatoFind2);
+                $datatoFind6['title'] = $data2['title'];
+                $res = $Abcategories->get_first_from_db($datatoFind6);
                 $categoryID = $res->id;
                 //Creating sql query for books table in database
                 $new_isset_id++;
@@ -290,7 +270,7 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $data4['access'] = '1';
                 $data4['metakey'] = $data4['title'];
                 $data4['metadesc'] = $data4['title'];
-                $data4['metadata4'] = '{"robots":"","author":"","rights":""}';
+                $data4['metadata4'] = '{"robots":"","author":"juliet","rights":""}';
                 $data4['language'] = '*';
                 $data4['ordering`'] = 0;
                 $data4['params'] = '{"show_author":"","author_order":"","linkto":"","linkimage":"","view_date":"","show_icons":"","show_print_icon":"","show_hits":"","breadcrumb":"","search":"","view_rate":"","book_layout":"","view_pag_index":""}';
@@ -312,11 +292,11 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
                 $res6 = $Abbook->insert($data4);
                 //End Creating sql query for books table in database
                 //assosiating Author with Book
-                $datatoFind3['title'] = $data4['title'];
-                $datatoFind4['lastname'] = $data1['lastname'];
-                $datatoFind4['name'] = $data1['name'];
-                $res7 = $Abbook->get_first_from_db($datatoFind3);
-                $res8 = $Abauthor->get_first_from_db($datatoFind4);
+                $datatoFind7['title'] = $data4['title'];
+                $datatoFind8['lastname'] = $data1['lastname'];
+                $datatoFind8['name'] = $data1['name'];
+                $res7 = $Abbook->get_first_from_db($datatoFind7);
+                $res8 = $Abauthor->get_first_from_db($datatoFind8);
                 $data5['idbook'] = $res7->id;
                 $data5['idauth'] = $res8->id;
                 $res10 = $abbookAuth->insert($data5);
