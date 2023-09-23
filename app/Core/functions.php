@@ -218,11 +218,9 @@ function fixData($book, $curl){
         $data1['lastname'] = $authorData[0][0]->Surname;
         // Concatenate last name and first name
         $data1['alias'] = slug_gen($data1['lastname'], $data1['name']);
-    }
-    if (isset($authorData[0][0]->Biography)) {
-        $data1['description'] = str_replace(array('<<', '"', "'"), ' ', str_replace(array("\r", "\n"), ' ', $authorData[0][0]->Biography));
-    }
-    if (isset($data1)) {
+        if (isset($authorData[0][0]->Biography)) {
+            $data1['description'] = str_replace(array('<<', '"', "'"), ' ', str_replace(array("\r", "\n"), ' ', $authorData[0][0]->Biography));
+        }
         $returnedResult = [
             "data1" => $data1,
             "data2" => $data2,
