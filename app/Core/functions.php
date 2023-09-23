@@ -95,15 +95,19 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     if (is_array($returnedResult)) {
         foreach ($returnedResult[0] as $book) {
             $returnResults = fixData($book, $curl);
-            $data1 = $returnResults['data1'];
+            if (isset($returnResults['data1'])) {
+                $data1 = $returnResults['data1'];
+            }
             $data2 = $returnResults['data2'];
             $data3 = $returnResults['data3'];
             $data4 = $returnResults['data4'];
             // starting saving data to database
             //---------------------------------
             //checking if author exists in Database 
-            $datatofind1['lastname'] = $data1['lastname'];
-            $datatofind1['name'] = $data1['name'];
+            if (isset( $data1['lastname']) && isset($data1['lastname'])) {
+                $datatofind1['lastname'] = $data1['lastname'];
+                $datatofind1['name'] = $data1['name'];
+            }
             $authorsFromDB = $Abauthor->get_first_from_db($datatofind1);
             if (empty($authorsFromDB)) {
                 insertAuthorData($Abauthor, $data1);
@@ -218,12 +222,20 @@ function fixData($book, $curl){
     if (isset($authorData[0][0]->Biography)) {
         $data1['description'] = str_replace(array('<<', '"', "'"), ' ', str_replace(array("\r", "\n"), ' ', $authorData[0][0]->Biography));
     }
-    $returnedResult = [
-        "data1" => $data1,
-        "data2" => $data2,
-        "data3" => $data3,
-        "data4" => $data4
-    ];
+    if (isset($data1)) {
+        $returnedResult = [
+            "data1" => $data1,
+            "data2" => $data2,
+            "data3" => $data3,
+            "data4" => $data4
+        ];
+    }else {
+        $returnedResult = [
+            "data2" => $data2,
+            "data3" => $data3,
+            "data4" => $data4
+        ];
+    }
     return $returnedResult;
 }
 
