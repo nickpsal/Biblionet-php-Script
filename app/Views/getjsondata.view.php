@@ -30,7 +30,7 @@
         </div>
         <div class="form-group">
             <label for="pageNumber">Αριθμός Σελίδας:</label>
-            <input type="number" class="form-control" name="pagenumber" placeholder="Αριθμός Σελίδας" value="<?= (isset($_POST['pagenumber'])) ? $_POST['pagenumber'] : ""; ?>" required min="1" max="12">
+            <input type="number" class="form-control" name="pagenumber" placeholder="Αριθμός Σελίδας" value="<?= (isset($_POST['pagenumber'])) ? $_POST['pagenumber'] : ""; ?>" required min="1">
         </div>
         <button type="submit" class="btn btn-primary w-100 mb-3">Submit</button>
         <a href="<?= ROOT ?>" type="submit" class="btn btn-primary w-100 mb-3">Επιστροφή</a>
