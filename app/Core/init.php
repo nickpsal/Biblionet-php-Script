@@ -1,4 +1,5 @@
 <?php
+    require_once URL . 'vendor/autoload.php';
     require "config.php";
     require "functions.php";
     require_once "Request.php";
@@ -7,5 +8,5 @@
     require "Controller.php";
     require "App.php";
     spl_autoload_register(function($classname) {
-        require "../app/Models/" . ucfirst($classname) . ".php";
+        require URL . "../app/Models/" . ucfirst($classname) . ".php";
     });
