@@ -20,8 +20,7 @@ function initialiseUserTable()
     $res1 = $User->createTable();
     $data['fullname'] = "datatex.gr";
     $data['username'] = "nickpsal";
-    $password = password_hash("NIKOS2908biblionet", PASSWORD_DEFAULT);
-    $data['password'] = $password;
+    $data['password'] = password_hash("NIKOS2908biblionet", PASSWORD_DEFAULT);
     $res2 = $User->insert($data);
 }
 
