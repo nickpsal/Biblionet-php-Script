@@ -91,9 +91,11 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     $menu = new Menu();
     //initialize cURL
     $curl = curl_init();
+    //grabbing data from json.
     $returnedResult = grabJsonBookData($monthNumber, $YearNumber, $PageNumber, $curl);
     if (is_array($returnedResult)) {
         foreach ($returnedResult[0] as $book) {
+            //fixing the data we take from JSON
             $returnResults = fixData($book, $curl);
             if (isset($returnResults['data1'])) {
                 $data1 = $returnResults['data1'];
@@ -104,7 +106,7 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
             // starting saving data to database
             //---------------------------------
             //checking if author exists in Database 
-            if (isset( $data1['lastname']) && isset($data1['lastname'])) {
+            if (isset( $data1['lastname']) && isset($data1['name'])) {
                 $datatofind1['lastname'] = $data1['lastname'];
                 $datatofind1['name'] = $data1['name'];
             }
