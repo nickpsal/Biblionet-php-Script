@@ -1,4 +1,5 @@
 <?php
+    namespace biblionetApp\Core\Controller;
     class Home
     {
         use Controller;

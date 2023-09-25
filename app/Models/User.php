@@ -1,4 +1,5 @@
 <?php
+    namespace biblionetApp\Core;
     class User
     {
         use Model;

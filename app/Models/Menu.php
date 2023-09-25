@@ -1,4 +1,5 @@
 <?php
+    namespace biblionetApp\Core;
     class Menu {
         use Model;
         protected $db_table = 'mcpyv_menu';   

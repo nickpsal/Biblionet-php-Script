@@ -1,4 +1,5 @@
 <?php
+    namespace biblionetApp\Core;
     class  Abbookauth {
         use Model;
         protected  $db_table = 'mcpyv_abbookauth';   

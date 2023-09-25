@@ -1,4 +1,5 @@
 <?php 
+	namespace biblionetApp\Core;
 	class Request{
 		/** check if something was posted **/
 		public function is_post():bool{

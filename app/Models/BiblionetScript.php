@@ -1,4 +1,5 @@
-<?php 
+<?php
+    namespace biblionetApp\Core;
     class biblionetScript {
         use Model;
         protected $db_table = 'biblionetScript';   

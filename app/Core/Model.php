@@ -1,4 +1,6 @@
 <?php
+namespace biblionetApp\Core;
+use Exception; // Import the global Exception class
 trait Model
 {
     use Database;

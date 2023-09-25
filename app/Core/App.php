@@ -1,4 +1,5 @@
 <?php
+    namespace biblionetApp\Core;
     class App{
         private $controller = 'Home';
         private $method = 'index';
