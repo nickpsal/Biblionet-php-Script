@@ -1,6 +1,4 @@
 <?php
-namespace biblionetApp\Core;
-use Exception; // Import the global Exception class
 trait Model
 {
     use Database;
@@ -9,12 +7,7 @@ trait Model
     public function find_all()
     {
         $query = "SELECT * FROM $this->db_table ORDER BY $this->order_col $this->order_type limit $this->limit offset $this->offset";
-        $result =  $this->query($query);
-        if (!$result) {
-            return false;
-        }else {
-            return $result;
-        }
+        return $this->query($query);
     }
 
     public function checkifTableexists()
@@ -57,12 +50,7 @@ trait Model
         $query = trim($query, " && ");
         $query .= " order by $this->order_col $this->order_type limit $this->limit offset $this->offset";
         $data = array_merge($data, $data_not);
-        $result =  $this->query($query, $data);
-        if (!$result) {
-            return false;
-        }else {
-            return $result;
-        }
+        return $this->query($query, $data);
     }
 
     public function get_first_from_db($data, $data_not  =  [])
@@ -139,12 +127,8 @@ trait Model
         $query = trim($query, ", ");
         $data[$id_column] = $user_id;
         $query .= " where $id_column = :$id_column";
-        $result = $this->query($query, $data);
-        if (!$result) {
-            return false;
-        }else {
-            return true;
-        }
+        $this->query($query, $data);
+        return false;
     }
 
     public function delete($id, $id_column = 'id')

@@ -1,7 +1,4 @@
 <?php
-    namespace biblionetApp\Core\Controller;
-    use biblionetApp\Core\Request;
-    
     class Login {
         use Controller;
         public function index($data = [])

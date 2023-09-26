@@ -1,5 +1,4 @@
 <?php
-    namespace biblionetApp\Core;
     class Abauthor {
         use Model;
         protected $db_table = 'mcpyv_abauthor';   

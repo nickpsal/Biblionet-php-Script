@@ -1,5 +1,4 @@
 <?php
-    namespace biblionetApp\Core;
     trait Controller {
         public function view($view, $data = []){
             $header = "../app/Views/includes/header.php";

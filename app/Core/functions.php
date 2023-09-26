@@ -1,5 +1,5 @@
 <?php
-namespace biblionetApp\Core;
+
 function checkDatabaseTables()
 {
     $User = new User();
@@ -20,7 +20,8 @@ function initialiseUserTable()
     $res1 = $User->createTable();
     $data['fullname'] = "datatex.gr";
     $data['username'] = "nickpsal";
-    $data['password'] = password_hash("NIKOS2908biblionet", PASSWORD_DEFAULT);
+    $password = password_hash("NIKOS2908biblionet", PASSWORD_DEFAULT);
+    $data['password'] = $password;
     $res2 = $User->insert($data);
 }
 
@@ -33,24 +34,24 @@ function initialiseBiblionetScriptTable()
 function getCurrentDate()
 {
     // Set the timezone to GMT+3 (Eastern European Time)
-    $timezone = new \DateTimeZone('Europe/Athens');
+    $timezone = new DateTimeZone('Europe/Athens');
     // Create a DateTime object with the specified timezone
-    $date = new \DateTime('now', $timezone);
+    $date = new DateTime('now', $timezone);
     return $date->format('d-m-Y H:i');
 }
 
 function formatDate($date)
 {
-    $lastImportDate = \DateTime::createFromFormat('Y-m-d H:i', $date);
+    $lastImportDate = DateTime::createFromFormat('Y-m-d H:i', $date);
     return $lastImportDate->format('d-m-Y H:i');
 }
 
 function getCurrentDate2()
 {
     // Set the timezone to GMT+3 (Eastern European Time)
-    $timezone = new \DateTimeZone('Europe/Athens');
+    $timezone = new DateTimeZone('Europe/Athens');
     // Create a DateTime object with the specified timezone
-    $date = new \DateTime('now', $timezone);
+    $date = new DateTime('now', $timezone);
     return $date->format('Y-m-d H:i');
 }
 
@@ -59,7 +60,7 @@ function  getLastgrabDate()
     $lastDate = new biblionetScript();
     $res = $lastDate->getLastDate();
     if ($res != false) {
-        $lastImportDate = \DateTime::createFromFormat('Y-m-d H:i', $res[0]->lastDate);
+        $lastImportDate = DateTime::createFromFormat('Y-m-d H:i', $res[0]->lastDate);
         return $lastImportDate->format('d-m-Y H:i');
     }
 }
@@ -90,11 +91,9 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     $menu = new Menu();
     //initialize cURL
     $curl = curl_init();
-    //grabbing data from json.
     $returnedResult = grabJsonBookData($monthNumber, $YearNumber, $PageNumber, $curl);
     if (is_array($returnedResult)) {
         foreach ($returnedResult[0] as $book) {
-            //fixing the data we take from JSON
             $returnResults = fixData($book, $curl);
             if (isset($returnResults['data1'])) {
                 $data1 = $returnResults['data1'];
@@ -105,7 +104,7 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
             // starting saving data to database
             //---------------------------------
             //checking if author exists in Database 
-            if (isset( $data1['lastname']) && isset($data1['name'])) {
+            if (isset( $data1['lastname']) && isset($data1['lastname'])) {
                 $datatofind1['lastname'] = $data1['lastname'];
                 $datatofind1['name'] = $data1['name'];
             }

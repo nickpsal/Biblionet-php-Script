@@ -1,5 +1,4 @@
 <?php
-    namespace biblionetApp\Core\Controller;
     class Logout{
         use Controller;
         public function index($data = []){

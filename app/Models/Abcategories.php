@@ -1,5 +1,4 @@
 <?php
-    namespace biblionetApp\Core;
     class  Abcategories {
         use Model;
         protected  $db_table = 'mcpyv_abcategories';   
