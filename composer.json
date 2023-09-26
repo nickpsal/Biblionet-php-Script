@@ -8,7 +8,9 @@
             "email": "nickpsal@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "tecnickcom/tcpdf": "^6.6"
+    },
     "autoload": {
         "classmap": [
             "app/Core",
