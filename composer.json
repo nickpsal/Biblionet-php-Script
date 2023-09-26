@@ -1,0 +1,22 @@
+{
+    "name": "nickp/biblionet-php-script",
+    "description": "Biblionet API script for Joomla and Alexandria Book Library",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Nikolaos Psaltakis",
+            "email": "nickpsal@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "app/Core",
+            "app/Models"            
+        ],
+        "files": [
+            "app/Core/config.php",
+            "app/Core/functions.php"
+        ]
+    }
+}
