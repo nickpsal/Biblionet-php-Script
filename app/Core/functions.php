@@ -574,6 +574,56 @@ function downlaod_Author_image($AuthorImageURL, $filename)
     }
 }
 
+function exportPDF($data) {
+    // Create an instance of TCPDF
+    $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+    //set font 
+    $pdf->SetFont('dejavusans', '', 10);
+    //Add a Page
+    $pdf->AddPage();
+    // Set HTML content
+    $html = '<h1 class="header">Αρχείο Καταγραφής Εφαρμογής</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Month</th>
+                    <th>Year</th>
+                    <th>Page</th>
+                    <th>Authors</th>
+                    <th>Categories</th>
+                    <th>Publishers</th>
+                    <th>Books</th>
+                </tr>
+            </thead>';
+    if (isset($data['logs'])) {
+        if ($data['logs'] != false) {
+            $html .= '<tbody>'; // Start tbody here
+            for ($i = 0; $i < sizeof($data['logs']); $i++) {
+                $html .= '<tr>
+                                    <td>' . formatDate($data['logs'][$i]->lastDate) . '</td>
+                                    <td>' . $data['logs'][$i]->InsertedMonth . '</td>
+                                    <td>' . $data['logs'][$i]->InsertedYear . '</td>
+                                    <td>' . $data['logs'][$i]->InsertedPage . '</td>
+                                    <td>' . $data['logs'][$i]->InsertedAuthors . '</td>
+                                    <td>' . $data['logs'][$i]->InsertedCategories . '</td>
+                                    <td>' . $data['logs'][$i]->InsertedPublishers . '</td>
+                                    <td>' . $data['logs'][$i]->InsertedBooks . '</td>
+                                </tr>';
+            }
+            $html .= '</tbody>'; // End tbody here
+        }
+    }
+    $html .= '</table>';
+    // Set font size to auto-scale content
+    $font_size = 12; // Initial font size
+    $max_height = 280; // Maximum height for the content (adjust as needed)
+    // Convert HTML to PDF
+    $pdf->writeHTML($html, true, false, true, false, '');
+    // Output PDF
+    $pdf->Output('example.pdf', 'D'); // 'I' to open in the browser, 'D' to download, 'F' to save to a file.
+}
+
 function slug_gen($lastname, $firstname)
 {
     $greek_characters = array(

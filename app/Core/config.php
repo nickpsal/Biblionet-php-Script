@@ -7,8 +7,8 @@
     if ($_SERVER['HTTP_HOST'] == 'www.juliet.gr') {
         define('CoverImagesPath', '/var/www/vhosts/koyinta.gr/juliet.gr/images/biblionet/');
         define('AuthorsImagePath', '/var/www/vhosts/koyinta.gr/juliet.gr/images/biblionet/Authors/');
+        define('PDFPath', '/var/www/vhosts/koyinta.gr/juliet.gr/biblionet/public/data/');
         define('ROOT', 'https://' . $_SERVER['HTTP_HOST'] . '/biblionet/public/');
-        define('URL', 'https://' . $_SERVER['HTTP_HOST'] . '/biblionet/');
         define('DB_HOST', 'localhost');
         define('DB_USER', 'koyinta588443_juliet.gr');
         define('DB_PASS', 'hT!7Uq@&iX%0F$ak');
@@ -16,6 +16,7 @@
     }else {
         define('CoverImagesPath', '/var/www/vhosts/koyinta.gr/projects.datatex.gr/biblionet_testing/images/biblionet/');
         define('AuthorsImagePath', '/var/www/vhosts/koyinta.gr/projects.datatex.gr/biblionet_testing/images/biblionet/Authors/');
+        define('PDFPath', '/var/www/vhosts/koyinta.gr/projects.datatex.gr/biblionet_script/public/data/');
         define('ROOT', 'https://' . $_SERVER['HTTP_HOST'] . '/biblionet_script/public/');
         define('URL', 'https://' . $_SERVER['HTTP_HOST'] . '/biblionet_script/');
         define('DB_HOST', 'localhost');

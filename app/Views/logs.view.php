@@ -6,6 +6,12 @@
     </div>
 </div>
 <div class="container">
+    <form action="" method="post">
+        <button type="submit" class="btn btn-primary w-100 mb-3">Αποθήκευση σε PDF</button>
+        <a href="<?= ROOT ?>" type="submit" class="btn btn-primary w-100 mb-3">Επιστροφή</a>
+    </form>
+</div>
+<div class="container">
     <div>
         <h1 class="header">Αρχείο Καταγραφής Εφαρμογής</h1>
         <table class="table">
@@ -36,16 +42,12 @@
                             <td><?= $data['logs'][$i]->InsertedCategories ?></td>
                             <td><?= $data['logs'][$i]->InsertedPublishers ?></td>
                             <td><?= $data['logs'][$i]->InsertedBooks ?></td>
+                            <td><a href="logs/delete/<?=$data['logs'][$i]->id?>">Delete</a></td>
                         </tbody>
             <?php }
                 }
             }
             ?>
         </table>
-    </div>
-</div>
-<div class="container">
-    <div class="row justify-content-center mt-5 mb-3">
-        <a href="<?= ROOT ?>" type="submit" class="btn btn-primary mb-3">Επιστροφή</a>
     </div>
 </div>

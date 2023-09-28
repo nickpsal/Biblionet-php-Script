@@ -18,7 +18,8 @@
         ],
         "files": [
             "app/Core/config.php",
-            "app/Core/functions.php"
+            "app/Core/functions.php",
+            "vendor/tecnickcom/tcpdf/tcpdf.php"
         ]
     }
 }
