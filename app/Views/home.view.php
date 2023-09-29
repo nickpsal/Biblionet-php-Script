@@ -31,7 +31,7 @@
 </div>
 <div class="container">
     <div class="row justify-content-center mt-5 mb-3">
-        <a href="<?=ROOT?>home/getjsondata" type="submit" class="btn btn-primary mb-3">Περάσμα Δεδομένων απο την Biblionet στην Βάση Δεδομένων</a>
+        <a href="<?=ROOT?>home/getjsondata" type="submit" class="btn btn-primary mb-3">Καταχώρηση Δεδομένων απο την Biblionet στην Βάση Δεδομένων</a>
         <a href="<?=ROOT?>home/printjsondata" type="submit" class="btn btn-primary mb-3">Εκτύπωση Δεδομένων απο την Biblionet χωρις να περαστούν στην Βάση</a>
         <a href="<?=ROOT?>logs" type="submit" class="btn btn-primary mb-3">Αρχείο Καταγραφής</a>
         <a href="<?=ROOT?>logout" type="submit" class="btn btn-primary mb-3">Αποσύνδεση</a>
