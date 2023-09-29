@@ -80,7 +80,6 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     $publishers_counter = 0;
     $categorys_counter = 0;
     $books_counter = 0;
-    $new_isset_id = get_current_isset_id() + 1;
     //Database tables 
     $Abauthor = new Abauthor();
     $Abbook = new Abbook();
@@ -89,7 +88,8 @@ function saveBookData($monthNumber, $YearNumber, $PageNumber)
     $abbookAuth = new Abbookauth();
     $lastDate = new biblionetScript();
     $menu = new Menu();
-    //initialize cURL
+    $new_isset_id = get_current_isset_id($Abcategories, $Abbook) + 1;
+    //initialize cURL`
     $curl = curl_init();
     $returnedResult = grabJsonBookData($monthNumber, $YearNumber, $PageNumber, $curl);
     if (is_array($returnedResult)) {
@@ -519,17 +519,11 @@ function grabJsonAuthorData($personId, $curl)
     return $data;
 }
 
-function get_current_isset_id()
+function get_current_isset_id($Abcategories, $Abbook)
 {
-    $cat = new Abcategories;
-    $book = new Abbook;
-    $asset_id1 = $book->getMax("asset_id");
-    $asset_id2 = $cat->getMax("asset_id");
-    if ($asset_id1[0]->max_value > $asset_id2[0]->max_value) {
-        return $asset_id1[0]->max_value;
-    } else {
-        return $asset_id2[0]->max_value;
-    }
+    $asset_id1 = $Abbook->getMax("asset_id");
+    $asset_id2 = $Abcategories->getMax("asset_id");
+    return max($asset_id1[0]->max_value, $asset_id2[0]->max_value);
 }
 
 function redirect($page)
