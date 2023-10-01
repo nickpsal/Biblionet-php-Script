@@ -440,6 +440,7 @@ function printJsonBookData($monthNumber, $YearNumber)
     $url = 'https://biblionet.gr/wp-json/biblionetwebservice/get_month_titles';
     // Initialize an array to store the data from all pages
     $allData = [];
+    $bookCounter = 0;
     $PageNumber = 1;
     // Continue making requests until you receive an empty response
     while (true) {
